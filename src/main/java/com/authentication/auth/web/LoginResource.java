@@ -1,7 +1,6 @@
 package com.authentication.auth.web;
 
 import com.authentication.auth.service.LoginService;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,5 +30,17 @@ public class LoginResource {
 
         return loginService.getStudentName(httpServletRequest);
     }
-
+    @PostMapping("/sendMail")
+    public void checkAndGenearate(@RequestBody Map<String ,Object> body){
+        System.out.println(body);
+        loginService.checkAndGenearate(body);
+    }
+    @PostMapping("/validateResetToken")
+    public Map<String,Object> validateResetToken(@RequestBody Map<String,Object> body){
+        return loginService.validateResetToken(body);
+    }
+    @PostMapping("/changePassword")
+    public Map<String,Object> changePassword(@RequestBody Map<String,Object> body){
+        return loginService.changePassword(body);
+    }
 }

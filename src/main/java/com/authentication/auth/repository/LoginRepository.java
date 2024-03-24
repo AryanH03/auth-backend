@@ -21,4 +21,17 @@ public class LoginRepository {
     public Map<String,Object> validateToken(int userId,String token){
         return jdbcTemplate.queryForMap("EXEC [dbo].[sp_validate_token] ?,?",userId,token);
     }
+
+    public  Map<String,Object> validateEmail(String email){
+        return jdbcTemplate.queryForMap("EXEC dbo.sp_check_email ?",email);
+    }
+    public Map<String,Object> generateToken(String email){
+        return  jdbcTemplate.queryForMap("EXEC dbo.generate_token ?",email);
+    }
+    public Map<String,Object> validateResetToken(String fpToken){
+        return jdbcTemplate.queryForMap("EXEC dbo.sp_fp_check_token ?",fpToken);
+    }
+    public Map<String,Object> changePassword(String password,String fpToken){
+        return jdbcTemplate.queryForMap("EXEC dbo.sp_check_token_update ?,?",password,fpToken);
+    }
 }
